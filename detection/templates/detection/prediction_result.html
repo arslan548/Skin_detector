@@ -1,0 +1,128 @@
+{% extends 'detection/base.html' %} 
+{% block title %}Prediction Result{% endblock %} 
+
+{% block content %}
+<style>
+  .glass-container {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    max-width: 700px;
+    margin: 40px auto;
+    color: #333;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .glass-container h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #3b3b3b;
+  }
+  .link{
+    color: #3b3b3b;
+    text-decoration:none;
+    margin-bottom:20px;
+  }
+
+  .link:hover{
+    color: #333;
+  }
+
+
+  .glass-container img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .glass-container ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  .glass-container li {
+    margin-bottom: 8px;
+  }
+
+  .glass-btn {
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+    background: #e6e6fa;
+    box-shadow: 6px 6px 12px #c3bfe2, -6px -6px 12px #ffffff;
+    font-weight: 600;
+    color: #4b3f72;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    margin-top:20px;
+  }
+
+  .glass-btn:hover {
+    box-shadow: inset 2px 2px 5px #c3bfe2, inset -2px -2px 5px #ffffff;
+  }
+
+  .btn-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .glass-container {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .glass-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="glass-container">
+  <h2>🧠 Prediction Result</h2>
+
+  <p><strong>Prediction:</strong> {{ disease_name }}</p>
+  {% if confidence is not None %}
+  <p><strong>Confidence:</strong> {{ confidence|floatformat:0 }}%</p>
+  {% endif %}
+  <p><strong>Uploaded at:</strong> {{ prediction.uploaded_at|date:"D, M d, Y H:i" }}</p>
+
+  <img src="{{ prediction.image.url }}" alt="Uploaded Image" />
+
+  <h3>Details about {{ disease_name }}</h3>
+  <ul>
+    <li><strong>Causes:</strong> {{ details.causes }}</li>
+    <li><strong>Medications:</strong> {{ details.medications }}</li>
+    <li><strong>Symptoms:</strong> {{ details.symptoms }}</li>
+    <li><strong>What to do:</strong> {{ details.what_to_do }}</li>
+  </ul>
+
+  <!-- Only one "More Details" button -->
+   <center>
+  <a href="{% url 'disease_detail' disease_name %}" class="link">
+    🔍 Click Here For More Details about {{ disease_name }}
+  </a>
+</center>
+  <div class="btn-wrapper">
+    <a href="{% url 'upload_image' %}" class="glass-btn">
+      ⬅️ Upload Another Image
+    </a>
+    <a href="{% url 'prediction_history' %}" class="glass-btn">
+      📜 View Prediction History
+    </a>
+  </div>
+</div>
+
+{% endblock %}

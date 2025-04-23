@@ -1,0 +1,101 @@
+{% extends 'detection/base.html' %}
+{% load static %}
+{% load profile_extras %}
+{% block title %}Profile - Skin Detector{% endblock %}
+
+{% block content %}
+<style>
+    .glass-profile-container {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 30px;
+        max-width: 700px;
+        margin: 40px auto;
+        color: #333;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .glass-profile-container h2 {
+        text-align: center;
+        font-size: 1.8em;
+        margin-bottom: 30px;
+        color: #3b3b3b;
+    }
+
+    .profile-details {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+
+    .profile-details img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .glass-btn {
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.4);
+        color: #333;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .glass-btn:hover {
+        background: rgba(255, 255, 255, 0.6);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        .glass-profile-container {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .profile-details {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .glass-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="glass-profile-container">
+    <h2>👤 Your Profile</h2>
+
+    <div class="profile-details">
+        <img src="{{ user.profile|get_profile_pic_url }}" alt="Profile Picture">
+        <div>
+            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+    </div>
+
+    <div class="profile-buttons">
+        <a href="{% url 'edit_profile' %}" class="glass-btn">✏️ Edit Profile</a>
+        <a href="{% url 'prediction_history' %}" class="glass-btn">📜 Prediction History</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8" />
+    <title>Login</title>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #e0e5ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .neumorphic {
+      background: #e0e5ec;
+      border-radius: 20px;
+      box-shadow: inset 8px 8px 15px #babecc, inset -8px -8px 15px #ffffff;
+    }
+
+    .neumorphic-card {
+      background: #e0e5ec;
+      border-radius: 20px;
+      box-shadow: 10px 10px 20px #babecc, -10px -10px 20px #ffffff;
+      padding: 40px 50px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #444;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    form p {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 90%;
+      padding: 12px 18px;
+      border-radius: 15px;
+      border: none;
+      background: #e0e5ec;
+      box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      background: #e0e5ec;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+      font-weight: bold;
+      color: #555;
+      cursor: pointer;
+      width: 50%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 6px #babecc, -3px -3px 6px #ffffff;
+    }
+
+    p a {
+      text-decoration: none;
+      color: #44336a;
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .neumorphic-card {
+        padding: 30px 25px;
+        border-radius: 20px;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+      }
+    }
+
+    /* Additional styling for neumorphic inputs and button */
+    .neumorphic-input {
+      padding: 12px 18px;
+      border-radius: 15px;
+      border: none;
+      background: #e0e5ec;
+      box-shadow: inset 5px 5px 10px #babecc, inset -5px -5px 10px #ffffff;
+      outline: none;
+      font-size: 14px;
+      width: 90%;
+      margin: 10px 0;
+    }
+
+    .neumorphic-button {
+      padding: 12px 30px;
+      background: #e0e5ec;
+      border-radius: 25px;
+      border: none;
+      box-shadow: 5px 5px 10px #babecc, -5px -5px 10px #ffffff;
+      color: #555;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .neumorphic-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 6px #babecc, -3px -3px 6px #ffffff;
+    }
+  </style>
+<div class="neumorphic neumorphic-card">
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <center>
+        <button type="submit" class="neumorphic-button">Register</button>
+    </center>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+

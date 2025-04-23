@@ -1,0 +1,47 @@
+{
+  "inference_id": "3016aae5-155c-4b11-bf5a-cafb326101ab",
+  "time": 0.13891824999973323,
+  "image": {
+    "width": 1256,
+    "height": 638
+  },
+  "predictions": {
+    "Chickenpox": {
+      "confidence": 0.02195630595088005,
+      "class_id": 0
+    },
+    "Cowpox": {
+      "confidence": 0.02027287892997265,
+      "class_id": 1
+    },
+    "HFMD": {
+      "confidence": 0.02719913423061371,
+      "class_id": 2
+    },
+    "Healthy": {
+      "confidence": 0.9067707657814026,
+      "class_id": 3
+    },
+    "Measels": {
+      "confidence": 0.04493490234017372,
+      "class_id": 4
+    },
+    "Measles": {
+      "confidence": 0.01718965731561184,
+      "class_id": 5
+    },
+    "Monkeypox": {
+      "confidence": 0.017525015398859978,
+      "class_id": 6
+    },
+    "Mpox": {
+      "confidence": 0.026656512171030045,
+      "class_id": 7
+    }
+  },
+  "predicted_classes": [
+    "Healthy"
+  ],
+  "image_path": "D:\\PROJECT\\SKIN\\skindetector\\media\\uploads\\WhatsApp_Image_2025-04-20_at_12_eqt2jCD.22.19_e0bf0d5b.jpg",
+  "prediction_type": "ClassificationModel"
+}
