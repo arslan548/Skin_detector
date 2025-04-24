@@ -1,0 +1,205 @@
+{% extends 'detection/base.html' %}
+{% block title %}Upload Image{% endblock %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    color: #4b3f72;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+
+  form {
+    background: linear-gradient(145deg, #e6e6fa, #f8f8ff);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 10px 10px 25px rgba(180, 180, 200, 0.3), -10px -10px 25px #ffffff;
+    max-width: 550px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.3s ease;
+  }
+
+  form input[type="file"],
+  form button {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    box-shadow: inset 4px 4px 8px #d6d6e6, inset -4px -4px 8px #ffffff;
+    background: #f0f0ff;
+    transition: all 0.2s ease-in-out;
+  }
+
+  form button {
+    padding: 12px 30px;
+    background: linear-gradient(to right, #dcd0ff, #e6e6fa);
+    box-shadow: 6px 6px 12px #c3bfe2, -6px -6px 12px #ffffff;
+    font-weight: 600;
+    color: #4b3f72;
+    cursor: pointer;
+  }
+
+  form button:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 2px 2px 5px #d3cfe9, inset -2px -2px 5px #ffffff;
+  }
+
+  .preview-container {
+    margin-top: 25px;
+    text-align: center;
+  }
+
+  .preview-container img {
+    max-width: 95%;
+    max-height: 420px;
+    border-radius: 20px;
+    box-shadow: 12px 12px 24px rgba(150, 150, 180, 0.3), -10px -10px 20px #ffffff;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .preview-container img:hover {
+    transform: scale(1.01);
+  }
+
+  .drag-drop-area {
+    border: 3px dashed #aaa;
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    background: #f9f9ff;
+    transition: all 0.3s ease;
+  }
+
+  .drag-drop-area.dragover {
+    background-color: #e0e0f0;
+    border-color: #4b3f72;
+    color: #4b3f72;
+  }
+
+  #loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(75, 63, 114, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    flex-direction: column;
+  }
+
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #dcd0ff;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 600px) {
+    form {
+      padding: 25px;
+      width: 90%;
+    }
+    h2 {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<h2>🧠 Skin Disease Detector</h2>
+
+<form method="post" enctype="multipart/form-data" id="upload-form" novalidate>
+  <div class="drag-drop-area" id="drag-drop-area">
+    Drag & Drop an image here or click to select
+  </div>
+  <input type="file" name="image" id="id_image" style="display:none;" accept="image/*" />
+  
+  <div class="preview-container" id="preview-container" style="display:none;">
+    <h3>📸 Uploaded Image Preview</h3>
+    <img id="preview-image" alt="Uploaded Image Preview"/>
+  </div>
+
+  {% csrf_token %}
+  <button type="submit">Upload</button>
+</form>
+
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div>Loading, please wait...</div>
+</div>
+
+<script>
+  const dragDropArea = document.getElementById('drag-drop-area');
+  const fileInput = document.getElementById('id_image');
+  const previewContainer = document.getElementById('preview-container');
+  const previewImage = document.getElementById('preview-image');
+  const uploadForm = document.getElementById('upload-form');
+  const loadingOverlay = document.getElementById('loading-overlay');
+
+  dragDropArea.addEventListener('click', () => fileInput.click());
+  dragDropArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dragDropArea.classList.add('dragover');
+  });
+  dragDropArea.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dragDropArea.classList.remove('dragover');
+  });
+  dragDropArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragDropArea.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      fileInput.files = files;
+      updatePreview(files[0]);
+    }
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      updatePreview(fileInput.files[0]);
+    }
+  });
+
+  function updatePreview(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      previewImage.src = e.target.result;
+      previewContainer.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  uploadForm.addEventListener('submit', (e) => {
+    if (fileInput.files.length === 0) {
+      e.preventDefault();
+      alert("Please select an image to upload.");
+      return;
+    }
+    loadingOverlay.style.display = 'flex';
+  });
+</script>
+{% endblock %}
