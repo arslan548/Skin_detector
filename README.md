@@ -167,10 +167,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 For questions or support, please contact the project maintainer at: [arslansajjad548@gmail.com]
 
-### Made By Arslan Sajjad as a Collage Project. 
 ---
 
 # Additional Notes
 - The project uses Roboflow API for skin disease prediction.
 - Media files are stored in the `media/` directory.
 - User authentication is handled by Django's built-in auth system.
+### Made By Arslan Sajjad as a Collage Project. 
