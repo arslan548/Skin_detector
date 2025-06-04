@@ -140,7 +140,7 @@ Contributions are welcome! Please fork the repository and submit pull requests f
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For questions or support, please contact the project maintainer at: [your-email@example.com]
+For questions or support, please contact the project maintainer at: [arslansajjad@gmail.com]
 
 ---
 
