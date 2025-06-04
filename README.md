@@ -28,7 +28,7 @@ Skin Disease Detector is a Django-based web application designed to help users u
 2. Create and activate a virtual environment:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   .\venv\Scripts\activate  # On Windows: venv\Scripts\activate
    ```
 
 3. Install dependencies:
