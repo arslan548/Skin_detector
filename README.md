@@ -18,40 +18,65 @@ Skin Disease Detector is a Django-based web application designed to help users u
 - pip (Python package installer)
 - Virtual environment tool (optional but recommended)
 
-### Installation Steps
-1. Clone the repository:
+### Cloning Repository
    ```bash
    git clone https://github.com/arslan548/Skin_detector.git
    cd Skin_detector
    ```
 
-2. Create and activate a virtual environment:
+### Database setup
+1. Go to the MySql site (https://dev.mysql.com/downloads/installer/) and download the installer. Make sure to download the full setup:
+![image](https://github.com/user-attachments/assets/8eb80d79-1f24-4be2-a2b3-ff51a2839cb6)
+
+2. Then install the MySql
+
+3. You will create a username (By default its "root") and a password during installation make sure to remember that.
+
+4. After installation go to the folder "skindetector" in the repository you just cloned.
+
+5. Now open settings.py in it and go to line 94, 95 and enter you usernaame and password.
+
+6. Open terminal and give command:
+   ```bash
+   mysql -u root -p
+   ```
+   
+7. Enter your Mysql password.
+
+8. Now enter this:
+   ```MySql
+   CREATE DATABASE skin_db;
+   ```
+   
+9. Database setup complete.
+
+### Installation Steps
+1. Create and activate a virtual environment:
    ```bash
    python -m venv venv
    .\venv\Scripts\activate  # On Windows: venv\Scripts\activate
    ```
-
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-4. Apply database migrations:
+   
+3. Apply database migrations:
    ```bash
    python manage.py migrate
    ```
 
-5. Create a superuser (optional, for admin access):
+4. Create a superuser (optional, for admin access):
    ```bash
    python manage.py createsuperuser
    ```
 
-6. Run the development server:
+5. Run the development server:
    ```bash
    python manage.py runserver
    ```
 
-7. Access the application at `http://127.0.0.1:8000/`
+6. Access the application at `http://127.0.0.1:8000/`
 
 ## Usage
 - Register a new user or log in with existing credentials.
