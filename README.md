@@ -21,7 +21,7 @@ Skin Disease Detector is a Django-based web application designed to help users u
 ### Installation Steps
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/arslan548/Skin_detector.git
    cd skin-disease-detector
    ```
 
